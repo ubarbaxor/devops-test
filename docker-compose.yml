@@ -8,11 +8,13 @@ nginx:
     - node
 node:
   build: node
-  volume:
-    - ./app:/usr/src/app
+  volumes:
+    - ./node/app/server.js:/usr/src/app/server.js
+  environment:
+    - MONGO_URL=mongodb://mongo:27017/db
   links:
     - mongo
 mongo:
   image: mongo:3.4
   volumes:
-    - /var/db/mongo:/data/db
+    - ./mongodb:/data/db
