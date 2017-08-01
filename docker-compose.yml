@@ -1,0 +1,18 @@
+nginx:
+  image: oxynux/nginx
+  ports:
+    - "80:8000"
+  volumes:
+    - ./nginx/app.conf:/etc/nginx/conf.d/default.conf
+  links:
+    - node
+node:
+  build: node
+  volume:
+    - ./app:/usr/src/app
+  links:
+    - mongo
+mongo:
+  image: mongo:3.4
+  volumes:
+    - /var/db/mongo:/data/db
